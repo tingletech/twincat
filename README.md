@@ -32,8 +32,8 @@ To start the servers:
 
 `appFront/webapps` and `appBack/webapps` are where you can put the `.war` files.
 
-The servers start running on 8080 and 8081; with shutdown ports on 12005
-and 12006.  No ajp connector is configured.
+The servers start running on `8080` and `8081`; with shutdown ports on `12005`
+and `12006`.  No ajp connector is configured.
 
 Setting the environmental variables `START_LISTEN` and `START_SHUTDOWN`
 will change the starting number to the port number sequence.
