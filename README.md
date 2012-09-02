@@ -1,12 +1,21 @@
 Twincat -- set up two tomcats
 ===============
 
-`./grabcat.sh` will grab tomcat, and then set up two `CATALINA_BASE` directories.  Only run this once.
+Sometimes, you need to run more that one tomcat J2EE server.
+This script will quickly get you up an runnin with two tomcat.
+Need more than two?  Just add more names in the for loop in
+[`grabcat.sh`](https://github.com/tingletech/twincat/blob/master/grabcat.sh#L32)
+file.
 
-`./wrapper.sh appFront ./tomcat/bin/startup.sh` will start up the front end apache.
-`./wrapper.sh appBack ./tomcat/bin/startup.sh` will start up the back end apache.
+`./grabcat.sh` will grab tomcat, and then set up two `CATALINA_BASE`
+directories.  Only run this once.
+
+`./wrapper.sh appFront ./tomcat/bin/startup.sh` will start up the front end apache tomcat.
+`./wrapper.sh appBack ./tomcat/bin/startup.sh` will start up the back end apache tomcat.
 
 `appFront/webapps` and `appBack/webapps` are where you can put the `.war` files.
+
+TODO: add `monit` config and include a `chkconfig` compatabile init script.
 
 Project
 ------
