@@ -1,16 +1,16 @@
 Twincat -- set up two tomcats
 ===============
 
-`./grabcat.sh` will grab tomcat, and then set up two CATALINA_BASE directories.  Only run this once.
+`./grabcat.sh` will grab tomcat, and then set up two `CATALINA_BASE` directories.  Only run this once.
 
 `./wrapper.sh appFront ./tomcat/bin/startup.sh` will start up the front end apache.
 `./wrapper.sh appBack ./tomcat/bin/startup.sh` will start up the back end apache.
 
-`appFront/webapps` and `appBack/webapps` are where you can put the .war files.
+`appFront/webapps` and `appBack/webapps` are where you can put the `.war` files.
 
 Project
 ------
-Based on tomcat setup for SNAC in eac-graph-load on google code.
+Based on tomcat setup for SNAC in [eac-graph-load](https://code.google.com/p/eac-graph-load/source/browse/servers/) on google code.
 
 License
 -------
