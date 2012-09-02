@@ -2,13 +2,14 @@ Twincat -- set up two tomcats
 ===============
 
 Sometimes, you need to run more that one tomcat J2EE server.
-This script will quickly get you up an runnin with two tomcat.
+This script will quickly get you up and running with two tomcats.
 Need more than two?  Just add more names in the for loop in
 [`grabcat.sh`](https://github.com/tingletech/twincat/blob/master/grabcat.sh#L32)
 file.
 
 `./grabcat.sh` will grab tomcat, and then set up two `CATALINA_BASE`
-directories.  Only run this once.
+directories.  The binary distribution of tomcat is shared between the
+two configurations.  Only run this once.
 
 Once it has run, your directory structure will look like this:
 ```
