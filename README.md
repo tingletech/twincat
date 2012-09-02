@@ -2,16 +2,18 @@ Twincat -- set up two tomcats
 ===============
 
 Sometimes, you need to run more than one tomcat J2EE server.
-This script will quickly get you up and running with two tomcats.
-Need more than two?  Just add more names in the for loop in
-[`grabcat.sh`](https://github.com/tingletech/twincat/blob/master/grabcat.sh#L32)
-file.
+This script will quickly get you up and running with two or more tomcats.
 
-`./grabcat.sh` will grab tomcat, and then set up two `CATALINA_BASE`
-directories.  The binary distribution of tomcat is shared between the
-two configurations.  Only run this once.
+`./grabcat.sh` will grab tomcat, and then set up `CATALINA_BASE`
+directories for each command line argement.  The binary distribution of
+tomcat is shared between the configurations.  Only run this once.
 
-Once it has run, your directory structure will look like this:
+Once you have run, say,
+```shell
+./grabcat.sh appFront appBack
+```
+
+  your directory structure will look like this:
 ```
 .
 ├── apache-tomcat-7.0.xx                <- current tomcat binary distribution unpacked
@@ -32,15 +34,13 @@ To start the servers:
 
 `appFront/webapps` and `appBack/webapps` are where you can put the `.war` files.
 
-The servers start running on `8080` and `8081`; with shutdown ports on `12005`
-and `12006`.  No ajp connector is configured.
+The servers start running on `8080`, `8081`, etc.; with shutdown ports on
+`12005`, `12006`, etc.  No ajp connector is configured.
 
 Setting the environmental variables `START_LISTEN` and `START_SHUTDOWN`
 will change the starting number to the port number sequence.
 
 TODO: add `monit` config and include a `chkconfig` compatabile init script.
-
-TODO: don't hardcod exactly two tomcats with specific names?
 
 Project
 ------

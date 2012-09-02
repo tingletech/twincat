@@ -1,17 +1,25 @@
 #!/bin/bash 
 set -eu
-which xsltproc md5sum wget
+# will nedd to keep this up to date, server.xml template is for tomcat7
+tomcatVer=7.0.29
+tomcat=apache-tomcat-$tomcatVer
+md5=307076fa3827e19fa9b03f3ef7cf1f3f
+
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 cd $DIR
+if [ "$#" == "0" ]; then
+  echo "$0 appFront appBack ..."
+  echo "dowloads $tomcat and then creates a CATALINA_BASE for each command line argement"
+  exit 1
+fi
 if [ -e apache-tomcat-7.0.29.tar.gz ]; then
   echo "did you run me before? this should only be run once"
   exit 1
 fi
-
-wget "http://mirrors.sonic.net/apache/tomcat/tomcat-7/v7.0.29/bin/apache-tomcat-7.0.29.tar.gz"
-tomcat=apache-tomcat-7.0.29
-md5=307076fa3827e19fa9b03f3ef7cf1f3f
-check=`md5sum apache-tomcat-7.0.29.tar.gz | awk '{ print $1 }'` 
+which xsltproc md5sum wget	# abort now if commands I need are not installed
+# need some way to pick from a list of mirrors?
+wget "http://mirrors.sonic.net/apache/tomcat/tomcat-7/v$tomcatVer/bin/$tomcat.tar.gz"
+check=`md5sum $tomcat.tar.gz` 	# check the checksum
 # http://tldp.org/LDP/abs/html/comparison-ops.html
 # [[ $a == z* ]]   # True if $a starts with an "z" (pattern matching).
 if ! [[ "$check" == $md5* ]]; then
@@ -29,24 +37,24 @@ wget https://eac-graph-load.googlecode.com/hg/servers/CATALINA_BASE
 : ${START_SHUTDOWN:="12005"}
 
 offset=0
-for catbase in appFront appBack; do
-  mkdir -p $catbase/webapps
-  mkdir -p $catbase/temp
-  mkdir -p $catbase/work
-  mkdir -p $catbase/logs
-  mkdir -p $catbase/bin
-  cp -rp $tomcat/conf $catbase/conf
-  touch $catbase/bin/setenv.sh
-  cp -p $tomcat/bin/tomcat-juli.jar $catbase/bin
+for catbase in "$@"; do
+  mkdir -p "$catbase"/webapps
+  mkdir -p "$catbase"/temp
+  mkdir -p "$catbase"/work
+  mkdir -p "$catbase"/logs
+  mkdir -p "$catbase"/bin
+  cp -rp $tomcat/conf "$catbase"/conf
+  touch "$catbase"/bin/setenv.sh
+  cp -p $tomcat/bin/tomcat-juli.jar "$catbase"/bin
   # customize server.xml
   xsltproc                                                                     \
-    -o $catbase/conf/server.xml                                                \
+    -o "$catbase"/conf/server.xml                                              \
     --stringparam shutdown_string shutdown-this                                \
     --stringparam shutdown_port $(($START_SHUTDOWN + $offset))                 \
     --stringparam listen_port $(($START_LISTEN + $offset))                     \
     http://eac-graph-load.googlecode.com/hg/servers/xslt/generate_config.xslt  \
     http://eac-graph-load.googlecode.com/hg/servers/xslt/server.xml
-  offset=$(expr $offset + 1)
+  offset=$(($offset + 1))	# increment port offset for sequential ports
 done
 
 # generate monit config file
