@@ -1,7 +1,7 @@
 Twincat -- set up two tomcats
 ===============
 
-Sometimes, you need to run more that one tomcat J2EE server.
+Sometimes, you need to run more than one tomcat J2EE server.
 This script will quickly get you up and running with two tomcats.
 Need more than two?  Just add more names in the for loop in
 [`grabcat.sh`](https://github.com/tingletech/twincat/blob/master/grabcat.sh#L32)
