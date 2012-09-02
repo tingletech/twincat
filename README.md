@@ -10,12 +10,29 @@ file.
 `./grabcat.sh` will grab tomcat, and then set up two `CATALINA_BASE`
 directories.  Only run this once.
 
+Once it has run, your directory structure will look like this:
+```
+.
+├── apache-tomcat-7.0.29
+├── apache-tomcat-7.0.29.tar.gz
+├── appBack
+├── appFront
+├── CATALINA_BASE
+├── grabcat.sh
+├── README.md
+├── tomcat -> apache-tomcat-7.0.29
+└── wrapper.sh
+```
+
+To start the servers:
+
 `./wrapper.sh appFront ./tomcat/bin/startup.sh` will start up the front end apache tomcat.
 `./wrapper.sh appBack ./tomcat/bin/startup.sh` will start up the back end apache tomcat.
 
 `appFront/webapps` and `appBack/webapps` are where you can put the `.war` files.
 
 TODO: add `monit` config and include a `chkconfig` compatabile init script.
+
 
 Project
 ------
