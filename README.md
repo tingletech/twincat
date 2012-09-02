@@ -8,7 +8,8 @@ Need more than two?  Just add more names in the for loop in
 file.
 
 `./grabcat.sh` will grab tomcat, and then set up two `CATALINA_BASE`
-directories.  Only run this once.
+directories.  The binary distribution of tomcat is shared between the
+two configurations.  Only run this once.
 
 `./wrapper.sh appFront ./tomcat/bin/startup.sh` will start up the front end apache tomcat.
 `./wrapper.sh appBack ./tomcat/bin/startup.sh` will start up the back end apache tomcat.
