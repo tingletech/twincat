@@ -2,7 +2,7 @@
 set -eu
 which xsltproc md5sum wget
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
-
+cd $DIR
 if [ -e apache-tomcat-7.0.29.tar.gz ]; then
   echo "did you run me before? this should only be run once"
   exit 1
@@ -40,11 +40,11 @@ for catbase in appFront appBack; do
   cp -p $tomcat/bin/tomcat-juli.jar $catbase/bin
   # customize server.xml
   xsltproc                                                                     \
-    -o $DIR/$catbase/conf/server.xml                                           \
+    -o $catbase/conf/server.xml                                                \
     --stringparam shutdown_string shutdown-this                                \
     --stringparam shutdown_port $(($START_SHUTDOWN + $offset))                 \
     --stringparam listen_port $(($START_LISTEN + $offset))                     \
-    http://eac-graph-load.googlecode.com/hg/servers/xslt/generate_config.xslt \
+    http://eac-graph-load.googlecode.com/hg/servers/xslt/generate_config.xslt  \
     http://eac-graph-load.googlecode.com/hg/servers/xslt/server.xml
   offset=$(expr $offset + 1)
 done
