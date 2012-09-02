@@ -16,10 +16,13 @@ if [ -e apache-tomcat-7.0.29.tar.gz ]; then
   echo "did you run me before? this should only be run once"
   exit 1
 fi
-which xsltproc md5sum wget	# abort now if commands I need are not installed
+checksum() {	# http://stackoverflow.com/questions/1299833/bsd-md5-vs-gnu-md5sum-output-format
+        (md5sum <"$1"; test $? = 127 && md5 <"$1") | cut -d' ' -f1
+}
+which xsltproc wget	# abort now if commands I need are not installed
 # need some way to pick from a list of mirrors?
 wget "http://mirrors.sonic.net/apache/tomcat/tomcat-7/v$tomcatVer/bin/$tomcat.tar.gz"
-check=`md5sum $tomcat.tar.gz` 	# check the checksum
+check=`checksum $tomcat.tar.gz` 	# check the checksum
 # http://tldp.org/LDP/abs/html/comparison-ops.html
 # [[ $a == z* ]]   # True if $a starts with an "z" (pattern matching).
 if ! [[ "$check" == $md5* ]]; then
