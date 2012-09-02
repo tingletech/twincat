@@ -44,7 +44,7 @@ TODO: don't hardcod exactly two tomcats with specific names?
 
 Project
 ------
-Based on tomcat setup for SNAC in [eac-graph-load](https://code.google.com/p/eac-graph-load/source/browse/servers/) on google code.
+Based on tomcat setup for [SNAC](http://socialarchive.iath.virginia.edu/xtf/search) in [eac-graph-load](https://code.google.com/p/eac-graph-load/source/browse/servers/) on google code.
 
 Picture of cats
 --------
