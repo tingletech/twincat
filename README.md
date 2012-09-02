@@ -15,12 +15,12 @@ Once it has run, your directory structure will look like this:
 ```
 .
 ├── apache-tomcat-7.0.xx                <- current tomcat binary distribution unpacked
-├── apache-tomcat-7.0.xx.tar.gz	        <- tomcat download
+├── apache-tomcat-7.0.xx.tar.gz         <- tomcat download
 ├── appFront                            <- CATALINA_BASE #1 on 8080
 ├── appBack                             <- CATALINA_BASE #2 on 8081
 ├── CATALINA_BASE                       <- excerpt from tomcat docs that explains how this works
-├── grabcat.sh				<- only run this once
-├── README.md				<- you are here
+├── grabcat.sh                          <- only run this once
+├── README.md                           <- you are here
 ├── tomcat -> apache-tomcat-7.0.xx      <- maintain this link to the current version
 └── wrapper.sh                          <- sets CATALINA_BASE and then runs a command
 ```
