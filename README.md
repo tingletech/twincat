@@ -34,10 +34,16 @@ To start the servers:
 
 TODO: add `monit` config and include a `chkconfig` compatabile init script.
 
-
 Project
 ------
 Based on tomcat setup for SNAC in [eac-graph-load](https://code.google.com/p/eac-graph-load/source/browse/servers/) on google code.
+
+Picture of cats
+--------
+
+[![Saimese twins (cats) on the chair back by cookipediachef, on Flickr][2]][1]
+  [1]: http://www.flickr.com/photos/cookipedia/3261818751
+  [2]: http://farm4.staticflickr.com/3494/3261818751_87fcb1e281.jpg Saimese twins (cats) on the chair back
 
 License
 -------
