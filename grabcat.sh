@@ -20,8 +20,14 @@ checksum() {	# http://stackoverflow.com/questions/1299833/bsd-md5-vs-gnu-md5sum-
         (md5sum <"$1"; test $? = 127 && md5 <"$1") | cut -d' ' -f1
 }
 which xsltproc wget	# abort now if commands I need are not installed
-# need some way to pick from a list of mirrors?
-wget "http://mirrors.sonic.net/apache/tomcat/tomcat-7/v$tomcatVer/bin/$tomcat.tar.gz"
+# select a random mirror from mirrors.txt
+# http://www.hilarymason.com/blog/how-to-get-a-random-line-from-a-file-in-bash/
+mirror_length=`wc -l<mirrors.txt|tr -d ' '`
+mirror=`tail -$((RANDOM/(32767/$mirror_length))) mirrors.txt|head -1|tr -d "\n"`
+echo "|$mirror|"
+mirror="${mirror%\\n}"	# http://www.unix.com/shell-programming-scripting/135884-chomp-like-perl-operator-bash.html
+
+wget "$mirror/tomcat/tomcat-7/v$tomcatVer/bin/$tomcat.tar.gz"
 check=`checksum $tomcat.tar.gz` 	# check the checksum
 # http://tldp.org/LDP/abs/html/comparison-ops.html
 # [[ $a == z* ]]   # True if $a starts with an "z" (pattern matching).
@@ -66,4 +72,4 @@ done
 
 # create monit directory
 # mkdir -p $DIR/logs
-
+echo "looks like it all worked, $@ should all be configured"
