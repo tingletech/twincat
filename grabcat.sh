@@ -24,8 +24,6 @@ which xsltproc wget	# abort now if commands I need are not installed
 # http://www.hilarymason.com/blog/how-to-get-a-random-line-from-a-file-in-bash/
 mirror_length=`wc -l<mirrors.txt|tr -d ' '`
 mirror=`tail -$((RANDOM/(32767/$mirror_length))) mirrors.txt|head -1|tr -d "\n"`
-echo "|$mirror|"
-mirror="${mirror%\\n}"	# http://www.unix.com/shell-programming-scripting/135884-chomp-like-perl-operator-bash.html
 
 wget "$mirror/tomcat/tomcat-7/v$tomcatVer/bin/$tomcat.tar.gz"
 check=`checksum $tomcat.tar.gz` 	# check the checksum
