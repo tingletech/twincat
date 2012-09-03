@@ -9,7 +9,7 @@ directories for each command line argement.  The binary distribution of
 tomcat is shared between the configurations.  Only run this once.
 
 Once you have run, say,
-```shell
+```sh
 ./grabcat.sh appFront appBack
 ```
 
@@ -22,6 +22,7 @@ Once you have run, say,
 ├── appBack                             <- CATALINA_BASE #2 on 8081
 ├── CATALINA_BASE                       <- excerpt from tomcat docs that explains how this works
 ├── grabcat.sh                          <- only run this once
+├── mirrors.txt                         <- list of some apache mirrors
 ├── README.md                           <- you are here
 ├── tomcat -> apache-tomcat-7.0.xx      <- maintain this link to the current version
 └── wrapper.sh                          <- sets CATALINA_BASE and then runs a command
