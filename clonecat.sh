@@ -18,6 +18,7 @@ which xsltproc 	# abort now if commands I need are not installed
 
 clonecat() {  
   catbase="$1"	# CATALINA_BASE directory name, listen port, shutdown port
+  mkdir -p "$catbase"/webapps
   mkdir -p "$catbase"/temp
   mkdir -p "$catbase"/work
   mkdir -p "$catbase"/logs
@@ -30,8 +31,8 @@ clonecat() {
   xsltproc                                                                     \
     -o "$catbase"/conf/server.xml                                              \
     --stringparam shutdown_string twincat-shutdown-$safebase                   \
-    --stringparam shutdown_port "$2"                                           \
-    --stringparam listen_port "$3"                                             \
+    --stringparam listen_port "$2"                                             \
+    --stringparam shutdown_port "$3"                                           \
     http://eac-graph-load.googlecode.com/hg/servers/xslt/generate_config.xslt  \
     http://eac-graph-load.googlecode.com/hg/servers/xslt/server.xml
   echo "$1 configured"
