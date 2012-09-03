@@ -24,9 +24,10 @@ clonecat() {
   touch "$catbase"/bin/setenv.sh
   cp -p tomcat/bin/tomcat-juli.jar "$catbase"/bin
   # customize server.xml
+  safebase=`echo "$catbase" | tr " " "_"`   # don't want to mess with supporting spaces in shutdown string paramater
   xsltproc                                                                     \
     -o "$catbase"/conf/server.xml                                              \
-    --stringparam shutdown_string shutdown-this                                \
+    --stringparam shutdown_string twincat-shutdown-$safebase                   \
     --stringparam shutdown_port "$2"                                           \
     --stringparam listen_port "$3"                                             \
     http://eac-graph-load.googlecode.com/hg/servers/xslt/generate_config.xslt  \
