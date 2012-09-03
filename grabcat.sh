@@ -1,9 +1,18 @@
 #!/bin/bash 
+#
+# grabs apache tomcat from a mirror and unpacks it
+# sets up CATALINA_BASE directories for any command line arguments
+#
 set -eu
+
 # will nedd to keep this up to date, server.xml template is for tomcat7
 tomcatVer=7.0.29
 tomcat=apache-tomcat-$tomcatVer
 md5=307076fa3827e19fa9b03f3ef7cf1f3f
+
+# ports for the main tomcat and the shutdown are assiged sequentially starting at
+: ${START_LISTEN:="8080"}
+: ${START_SHUTDOWN:="12005"}
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 cd $DIR
@@ -14,7 +23,7 @@ fi
 checksum() {	# http://stackoverflow.com/questions/1299833/bsd-md5-vs-gnu-md5sum-output-format
         (md5sum <"$1"; test $? = 127 && md5 <"$1") | cut -d' ' -f1
 }
-which xsltproc wget	# abort now if commands I need are not installed
+which wget	# abort now if commands I need are not installed
 # select a random mirror from mirrors.txt
 # http://www.hilarymason.com/blog/how-to-get-a-random-line-from-a-file-in-bash/
 mirror_length=`wc -l<mirrors.txt|tr -d ' '`
@@ -33,10 +42,6 @@ ln -s $tomcat tomcat
 
 # leave some notes about how this is set up
 wget https://eac-graph-load.googlecode.com/hg/servers/CATALINA_BASE
-
-# create tomcat config for each server
-: ${START_LISTEN:="8080"}
-: ${START_SHUTDOWN:="12005"}
 
 offset=0
 for catbase in "$@"; do

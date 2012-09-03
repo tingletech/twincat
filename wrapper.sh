@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#
+# wrapper script to set CATALINA_BASE so startup.sh and shutdown.sh can be run
+#
 set -ue
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 if [ "$#" == "0" ]; then

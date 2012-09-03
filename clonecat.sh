@@ -1,9 +1,11 @@
 #!/bin/bash 
+#
+# clone a new CATALINA_BASE and set up a server.xml 
+#  $1 = a directory name relative to this script
+#  $2 = the port to listen on
+#  $3 = the shutdown port
+#
 set -eu
-# will nedd to keep this up to date, server.xml template is for tomcat7
-tomcatVer=7.0.29
-tomcat=apache-tomcat-$tomcatVer
-md5=307076fa3827e19fa9b03f3ef7cf1f3f
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 cd $DIR
