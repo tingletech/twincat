@@ -7,11 +7,6 @@ md5=307076fa3827e19fa9b03f3ef7cf1f3f
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 cd $DIR
-if [ "$#" == "0" ]; then
-  echo "$0 appFront appBack ..."
-  echo "dowloads $tomcat and then creates a CATALINA_BASE for each command line argement"
-  exit 1
-fi
 if [ -e apache-tomcat-7.0.29.tar.gz ]; then
   echo "did you run me before? this should only be run once"
   exit 1
@@ -45,29 +40,18 @@ wget https://eac-graph-load.googlecode.com/hg/servers/CATALINA_BASE
 
 offset=0
 for catbase in "$@"; do
-  mkdir -p "$catbase"/webapps
-  mkdir -p "$catbase"/temp
-  mkdir -p "$catbase"/work
-  mkdir -p "$catbase"/logs
-  mkdir -p "$catbase"/bin
-  cp -rp $tomcat/conf "$catbase"/conf
-  touch "$catbase"/bin/setenv.sh
-  cp -p $tomcat/bin/tomcat-juli.jar "$catbase"/bin
-  # customize server.xml
-  xsltproc                                                                     \
-    -o "$catbase"/conf/server.xml                                              \
-    --stringparam shutdown_string shutdown-this                                \
-    --stringparam shutdown_port $(($START_SHUTDOWN + $offset))                 \
-    --stringparam listen_port $(($START_LISTEN + $offset))                     \
-    http://eac-graph-load.googlecode.com/hg/servers/xslt/generate_config.xslt  \
-    http://eac-graph-load.googlecode.com/hg/servers/xslt/server.xml
+  ./clonecat.sh "$catbase" $(($START_SHUTDOWN + $offset)) $(($START_LISTEN + $offset))
   offset=$(($offset + 1))	# increment port offset for sequential ports
 done
 
 # generate monit config file
 # perl -p -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' monitrc.template > monitrc
 # chmod 700 monitrc
-
 # create monit directory
 # mkdir -p $DIR/logs
-echo "looks like it all worked, $@ should all be configured"
+
+if [ "$#" == "0" ]; then
+  echo "just grabbing the binary b/c no arguments where provided; use ./clonecat.sh to set up a CATALINA_BASE"
+else
+  echo "looks like it all worked, $@ should all be configured"
+fi
