@@ -45,7 +45,7 @@ wget https://eac-graph-load.googlecode.com/hg/servers/CATALINA_BASE
 
 offset=0
 for catbase in "$@"; do
-  ./clonecat.sh "$catbase" $(($START_SHUTDOWN + $offset)) $(($START_LISTEN + $offset))
+  ./clonecat.sh "$catbase" $(($START_LISTEN + $offset)) $(($START_SHUTDOWN + $offset))
   offset=$(($offset + 1))	# increment port offset for sequential ports
 done
 
