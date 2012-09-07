@@ -6,9 +6,9 @@
 set -eu
 
 # will nedd to keep this up to date, server.xml template is for tomcat7
-tomcatVer=7.0.29
+tomcatVer=7.0.30
 tomcat=apache-tomcat-$tomcatVer
-md5=307076fa3827e19fa9b03f3ef7cf1f3f
+md5=48c19559f28aa6f189bcb0b2c2e563cb
 
 # ports for the main tomcat and the shutdown are assiged sequentially starting at
 : ${START_LISTEN:="8080"}
@@ -16,7 +16,7 @@ md5=307076fa3827e19fa9b03f3ef7cf1f3f
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # http://stackoverflow.com/questions/59895
 cd $DIR
-if [ -e apache-tomcat-7.0.29.tar.gz ]; then
+if [ -e $tomcat.tar.gz ]; then
   echo "did you run me before? this should only be run once"
   exit 1
 fi
