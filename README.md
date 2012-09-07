@@ -1,10 +1,10 @@
-Twincat -- set up two tomcats
+Twincat -- set up n tomcats with one binary distribution
 ===============
 
 Sometimes, you need to run more than one tomcat J2EE server.
 This script will quickly get you up and running with two or more tomcats.
 
-`./grabcat.sh` will grab tomcat, and then set up `CATALINA_BASE`
+`./grabcat.sh` will grab tomcat from a mirror, check the checksum, and then set up `CATALINA_BASE`
 directories for each command line argement.  The binary distribution of
 tomcat is shared between the configurations.  Only run this once.
 
@@ -13,7 +13,7 @@ Once you have run, say,
 ./grabcat.sh appFront appBack
 ```
 
-or, equivalently
+or, equivalently using `./clonecat.sh`
 
 ```
 ./grabcat.sh
