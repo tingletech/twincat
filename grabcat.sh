@@ -6,9 +6,9 @@
 set -eu
 
 # will nedd to keep this up to date, server.xml template is for tomcat7
-tomcatVer=7.0.32
+tomcatVer=7.0.35
 tomcat=apache-tomcat-$tomcatVer
-md5=5c2576600ceb3c93a712820c7c16fa70
+md5=b096abcb23d3d5bb110f7d52a53fb9a8
 
 # ports for the main tomcat and the shutdown are assiged sequentially starting at
 : ${START_LISTEN:="8080"}
