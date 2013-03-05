@@ -40,9 +40,6 @@ fi
 tar zxf $tomcat.tar.gz
 ln -s $tomcat tomcat
 
-# leave some notes about how this is set up
-wget https://eac-graph-load.googlecode.com/hg/servers/CATALINA_BASE
-
 offset=0
 for catbase in "$@"; do
   ./clonecat.sh "$catbase" $(($START_LISTEN + $offset)) $(($START_SHUTDOWN + $offset))

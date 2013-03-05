@@ -33,8 +33,8 @@ clonecat() {
     --stringparam shutdown_string twincat-shutdown-$safebase                   \
     --stringparam listen_port "$2"                                             \
     --stringparam shutdown_port "$3"                                           \
-    http://eac-graph-load.googlecode.com/hg/servers/xslt/generate_config.xslt  \
-    http://eac-graph-load.googlecode.com/hg/servers/xslt/server.xml
+    $DIR/xslt/generate_config.xslt                                             \
+    $DIR/xslt/server.xml
   echo "$1 configured"
   echo "'./wrapper.sh $1 ./tomcat/bin/startup.sh' will start the server on $2"
   echo "'./wrapper.sh $1 ./tomcat/bin/shutdown.sh' will stop the server via $3"
