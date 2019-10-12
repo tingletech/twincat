@@ -6,9 +6,9 @@
 set -eu
 
 # will nedd to keep this up to date, server.xml template is for tomcat7
-tomcatVer=7.0.41
+tomcatVer=7.0.96
 tomcat=apache-tomcat-$tomcatVer
-md5=cca4176d9901ca1300a56390c36fd6f0
+sha512=a7ab7627ebafab8c5e5b1b09cff3a6e760f45dbc9b9ab235e14532357e47cf3bb6bbcfbdd92cd94561fe471296fd734d221ba8d59e1216a8369d2c39b1a80c98
 
 # ports for the main tomcat and the shutdown are assiged sequentially starting at
 : ${START_LISTEN:="8080"}
@@ -21,7 +21,7 @@ if [ -e $tomcat.tar.gz ]; then
   exit 1
 fi
 checksum() {	# http://stackoverflow.com/questions/1299833/bsd-md5-vs-gnu-md5sum-output-format
-        (md5sum <"$1"; test $? = 127 && md5 <"$1") | cut -d' ' -f1
+        (sha512sum <"$1"; test $? = 127 && sha512 <"$1") | cut -d' ' -f1
 }
 which wget	# abort now if commands I need are not installed
 # select a random mirror from mirrors.txt
@@ -33,7 +33,7 @@ wget "$mirror/tomcat/tomcat-7/v$tomcatVer/bin/$tomcat.tar.gz"
 check=`checksum $tomcat.tar.gz` 	# check the checksum
 # http://tldp.org/LDP/abs/html/comparison-ops.html
 # [[ $a == z* ]]   # True if $a starts with an "z" (pattern matching).
-if ! [[ "$check" == $md5* ]]; then
+if ! [[ "$check" == $sha512* ]]; then
   echo "files don't match"
   exit 1
 fi
